@@ -77,6 +77,14 @@ sys_sleep(void)
   return 0;
 }
 
+int
+sys_shutdown(void)
+{
+    cprintf("Shutdown signal sent:\n");
+    outw( 0x604, 0x0 | 0x2000 );
+    return 0;
+}
+
 // return how many clock tick interrupts have occurred
 // since start.
 int

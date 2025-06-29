@@ -2,7 +2,12 @@
 
 #include "types.h"
 #include "user.h"
+#include "param.h"
+#include "mmu.h"
 #include "fcntl.h"
+#include "proc.h"
+#include "spinlock.h"
+#define NELEM(x) (sizeof(x)/(sizeof(x[0])))
 
 // Parsed command representation
 #define EXEC  1
@@ -10,8 +15,26 @@
 #define PIPE  3
 #define LIST  4
 #define BACK  5
+#define NULL  0
 
 #define MAXARGS 10
+
+char *strcat(char *strg1, char *strg2)
+{
+  char *start=strg1;
+  while(*strg1!='\0')
+  {
+    strg1++;
+  }
+  while(*strg2!='\0')
+  {
+    *strg1=*strg2;
+    strg1++;
+    strg2++;
+  }
+  *strg1='\0';
+  return start;
+}
 
 struct cmd {
   int type;
@@ -49,9 +72,32 @@ struct backcmd {
   struct cmd *cmd;
 };
 
+//PWD
+struct directory
+{
+    char string[100];
+    struct directory *Next;
+    struct directory *Before;
+};
+
 int fork1(void);  // Fork but panics on failure.
 void panic(char*);
 struct cmd *parsecmd(char*);
+
+struct
+{
+    struct spinlock lock;
+    struct proc proc[NPROC];
+}ptable;
+
+//Build Directory
+struct directory *CreateNode(char *str)
+{
+    struct directory *temp=malloc(sizeof(struct directory));
+    strcpy(temp->string,str);
+    temp->Before=temp->Next=NULL;
+    return temp;
+}
 
 // Execute cmd.  Never returns.
 void
@@ -63,6 +109,8 @@ runcmd(struct cmd *cmd)
   struct listcmd *lcmd;
   struct pipecmd *pcmd;
   struct redircmd *rcmd;
+  
+  char point[]="/";
 
   if(cmd == 0)
     exit();
@@ -133,7 +181,7 @@ runcmd(struct cmd *cmd)
 int
 getcmd(char *buf, int nbuf)
 {
-  printf(2, "$ ");
+  printf(2, "> ");
   memset(buf, 0, nbuf);
   gets(buf, nbuf);
   if(buf[0] == 0) // EOF
@@ -154,6 +202,10 @@ main(void)
       break;
     }
   }
+  //Added code
+  struct directory *Head_Directory=CreateNode("/");
+  struct directory *curr=Head_Directory;
+  struct directory *prev=NULL:
 
   // Read and run input commands.
   while(getcmd(buf, sizeof(buf)) >= 0){
@@ -162,7 +214,11 @@ main(void)
       buf[strlen(buf)-1] = 0;  // chop \n
       if(chdir(buf+3) < 0)
         printf(2, "cannot cd %s\n", buf+3);
-      continue;
+    }
+    //Added code
+    else
+    {
+        if(buf[3]=='/')
     }
     if(fork1() == 0)
       runcmd(parsecmd(buf));
