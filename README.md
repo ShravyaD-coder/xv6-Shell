@@ -98,6 +98,11 @@ This project demonstrates how a shell works as a user interface for the operatin
 9. [SearchDataCenter — Shell Script](https://www.techtarget.com/searchdatacenter/definition/shell-script)
 
 ---
+## Note
+
+This is was completed as a part of Operating Systems course at RVCE
+
+---
 
 ## How to Run
 
