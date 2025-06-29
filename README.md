@@ -43,9 +43,9 @@ The project demonstrates essential OS and shell concepts such as input processin
 - Commands registered in the `Makefile` under `UPROGS` for compilation.  
 - Shutdown implemented as a system call with required edits to `syscall.h`, `syscall.c`, `usys.S`, and `user.h`.  
 - Build and run with:  
-make clean
-make
-make qemu-nox
+  `make clean`,
+  `make`,
+  `make qemu-nox`
 
 
 ---
@@ -87,15 +87,15 @@ This project demonstrates how a shell works as a user interface for the operatin
 
 ## References
 
-1. WordPress — Xv6  
-2. Github - AdityaKshettri/Bash_Shell_using_Xv6  
-3. What is a Makefile — GNU Manual  
-4. Github - SurajSubramanian/XV6-with-an-improvised-shell  
-5. Xv6 — GeeksforGeeks  
-6. Wikipedia — Xv6  
-7. Wikipedia — QEMU  
-8. Tutorials Point — What is a shell  
-9. SearchDataCenter — Shell Script
+1. [WordPress — Xv6](https://ampleux.wordpress.com/2018/02/22/how-to-add-a-user-program-to-xv6/)
+2. [Github - AdityaKshettri/Bash_Shell_using_Xv6](https://github.com/AdityaKshettri/Bash_Shell_using_Xv6)  
+3. [What is a Makefile — GNU Manual](https://www.sis.pitt.edu/mbsclass/tutorial/advanced/makefile/whatis.htm)  
+4. [Github - SurajSubramanian/XV6-with-an-improvised-shell](https://github.com/SurajSubramanian/XV6-with-an-improvised-shell/tree/master/xv6-public)  
+5. [Xv6 — GeeksforGeeks](https://www.geeksforgeeks.org/xv6-operating-system-adding-a-new-system-call/%23:~:text=Adding%20new%20system%20call%20to%20xv6%20:&text=A%20computer%20program%20makes%20system,including%20application%20and%20process%20scheduling./)  
+6. [Wikipedia — Xv6](https://en.wikipedia.org/wiki/Xv6)  
+7. [Wikipedia — QEMU](https://en.wikipedia.org/wiki/QEMU)  
+8. [Tutorials Point — What is a shell](https://www.tutorialspoint.com/unix/unix-what-is-shell.htm)  
+9. [SearchDataCenter — Shell Script](https://www.techtarget.com/searchdatacenter/definition/shell-script)
 
 ---
 
